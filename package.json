@@ -1,0 +1,10 @@
+{
+  "name": "portfolio-contact-link",
+  "version": "1.0.0",
+  "description": "Secure Vercel function to relay contact messages to Discord.",
+  "main": "api/discord-feedback.js",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.4.0" 
+  }
+}

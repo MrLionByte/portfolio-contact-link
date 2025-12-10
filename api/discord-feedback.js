@@ -1,6 +1,15 @@
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 export default async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+
     if (req.method !== 'POST') {
         res.status(405).json({ error: 'Method Not Allowed. Must be POST.' });
         return;
@@ -12,7 +21,7 @@ export default async (req, res) => {
     }
 
     try {
-        const { name, email, phone, linkedin, feedback } = req.body;
+        const { name, email, phone, linkedin, message } = req.body;
 
         if (!feedback) {
             res.status(400).json({ error: 'Missing required field: feedback message.' });
@@ -25,11 +34,11 @@ export default async (req, res) => {
                 title: "Contact/Feedback Received",
                 color: 3447003,
                 fields: [
-                    { name: "Name", value: name || "*Anonymous*", inline: true },
-                    { name: "Phone", value: phone, inline: true },
+                    { name: "Name", value: name , inline: true },
+                    { name: "Phone", value: phone || "*Anonymous*", inline: true },
                     { name: "Email", value: email || "*Anonymous*", inline: true },
                     { name: "Linkedin", value: linkedin || "*Anonymous*", inline: true },
-                    { name: "Message", value: feedback, inline: false }
+                    { name: "Message", value: message, inline: false }
                 ],
                 timestamp: new Date().toISOString() // Show when the message was sent
             }]

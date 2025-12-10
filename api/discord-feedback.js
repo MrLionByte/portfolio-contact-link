@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 export default async (req, res) => {

@@ -23,15 +23,15 @@ export default async (req, res) => {
     try {
         const { name, email, phone, linkedin, message } = req.body;
 
-        if (!feedback) {
-            res.status(400).json({ error: 'Missing required field: feedback message.' });
+        if (!message) {
+            res.status(400).json({ error: 'Missing required field: message.' });
             return;
         }
         
         const payload = {
             content: "📢 **New Portfolio Contact!**",
             embeds: [{
-                title: "Contact/Feedback Received",
+                title: "Contact/message Received",
                 color: 3447003,
                 fields: [
                     { name: "Name", value: name , inline: true },
@@ -56,7 +56,7 @@ export default async (req, res) => {
             return;
         }
 
-        res.status(200).json({ message: 'Feedback submitted successfully!' });
+        res.status(200).json({ message: 'message submitted successfully!' });
 
     } catch (error) {
         console.error('Processing Error:', error);
